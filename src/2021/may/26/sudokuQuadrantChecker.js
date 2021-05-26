@@ -18,6 +18,7 @@ function sudokuQuadrantChecker(strArray) {
   for (let r=0; r<9; r++) {
     for (let c=0; c<9; c++) {
       const box = strArray[r][c]
+      const boxIndex = parseInt(box) - 1
       const q = Math.trunc(r/3)*3 + Math.trunc(c/3) + 1
       
       if (box === 'x') {
@@ -27,30 +28,44 @@ function sudokuQuadrantChecker(strArray) {
       // record rows with entry
       // if row is not created in box
       if (!board['row'][r] && box !== 'x'){
-        board['row'][r] = []
-        board['row'][r].push(box)
+        board['row'][r] = new Array(9).fill(null)
+        board['row'][r][boxIndex] = box
       }
       // if row is recorded and 'N' is not in there
       else if (!(board["row"][r].includes(box))) {
-        board['row'][r].push(box)
+        board['row'][r][boxIndex] = box
       }
       // if 'N' is row-duplicate
       else if (board['row'][r].includes(box)) {
-        invalidQuad.push(q)
+        const c2 = board['row'][r].indexOf(boxIndex+1)
+        const q2 = Math.trunc(r/3)*3 + Math.trunc(c2/3) + 1
+        if (!invalidQuad.includes(q)){
+          invalidQuad.push(q)
+        }
+        if (!invalidQuad.includes(q2)){
+          invalidQuad.push(q2)
+        }
       }   
       // record col with entry
       // if col is not created in box
       if (!board['col'][c] && box !== 'x'){
-        board['col'][c] = []
-        board['col'][c].push(box)
+        board['col'][c] = new Array(9).fill(null)
+        board['col'][c][parseInt(box)] = box
       }
       // if col is recorded and 'N' is not in there
       else if (!board['col'][c].includes(box)) {
-        board['col'][c].push(box)
+        board['col'][c][boxIndex] = box
       }
       // if 'N' is col-duplicate
       else if (board['col'][c].includes(box)) {
-        invalidQuad.push(q)
+        const r2 = board['col'][c].indexOf(boxIndex+1)
+        const q2 = Math.trunc(r2/3)*3 + Math.trunc(c/3) + 1
+        if (!invalidQuad.includes(q)){
+          invalidQuad.push(q)
+        }
+        if (!invalidQuad.includes(q2)){
+          invalidQuad.push(q2)
+        }
       }
 
       // quadrant check
@@ -75,7 +90,7 @@ function sudokuQuadrantChecker(strArray) {
   if (invalidQuad.length === 0) {
     return 'legal';
   }
-  return invalidQuad.toString()
+  return invalidQuad.sort().toString()
 }
 
 module.exports = sudokuQuadrantChecker;
