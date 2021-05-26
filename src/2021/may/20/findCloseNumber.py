@@ -14,6 +14,7 @@ each element of array A is an integer within the range [1..1,000,000,000].
 '''
 
 def solution(A):
+    A = A.sort()
     for a in A:
         if a+1 in A or a-1 in A:
             return True
