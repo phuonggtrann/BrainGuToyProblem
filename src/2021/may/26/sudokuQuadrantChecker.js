@@ -3,8 +3,79 @@
 // Another example, if strArr is: ["(1,2,3,4,5,6,7,8,9)","(x,x,x,x,x,x,x,x,x)","(6,x,5,x,3,x,x,4,x)","(2,x,1,1,x,x,x,x,x)","(x,x,x,x,x,x,x,x,x)","(x,x,x,x,x,x,x,x,x)","(x,x,x,x,x,x,x,x,x)","(x,x,x,x,x,x,x,x,x)","(x,x,x,x,x,x,x,x,9)"] then your program should return 3,4,5,9.
 
 function sudokuQuadrantChecker(strArray) {
-  // Code goes here
-  return strArray;
+  // reformat strArray to 2D Array
+  for (let i=0; i<9; i++) {
+    strArray[i] = strArray[i].substring(1, strArray[i].length-1)
+    strArray[i] = strArray[i].split(',')
+  }
+  // creating hash
+  let invalidQuad = []
+  let board = {
+    'row': {},
+    'col': {},
+    'quad': {}
+  }
+  for (let r=0; r<9; r++) {
+    for (let c=0; c<9; c++) {
+      const box = strArray[r][c]
+      const q = Math.trunc(r/3)*3 + Math.trunc(c/3) + 1
+      
+      if (box === 'x') {
+        continue;
+      }
+
+      // record rows with entry
+      // if row is not created in box
+      if (!board['row'][r] && box !== 'x'){
+        board['row'][r] = []
+        board['row'][r].push(box)
+      }
+      // if row is recorded and 'N' is not in there
+      else if (!(board["row"][r].includes(box))) {
+        board['row'][r].push(box)
+      }
+      // if 'N' is row-duplicate
+      else if (board['row'][r].includes(box)) {
+        invalidQuad.push(q)
+      }   
+      // record col with entry
+      // if col is not created in box
+      if (!board['col'][c] && box !== 'x'){
+        board['col'][c] = []
+        board['col'][c].push(box)
+      }
+      // if col is recorded and 'N' is not in there
+      else if (!board['col'][c].includes(box)) {
+        board['col'][c].push(box)
+      }
+      // if 'N' is col-duplicate
+      else if (board['col'][c].includes(box)) {
+        invalidQuad.push(q)
+      }
+
+      // quadrant check
+      if (!board['quad'][q] && box !== 'x'){
+        board['quad'][q] = []
+        board['quad'][q].push(box)
+      }
+      // if row is recorded and 'N' is not in there
+      else if (!board['quad'][q].includes(box)) {
+        board['quad'][q].push(box)
+      }
+      // if 'N' is quad-duplicate
+      else if (board['quad'][q].includes(box)) {
+        if (!invalidQuad.includes(q)){
+          invalidQuad.push(q)
+        }
+        
+      } 
+
+    }
+  }
+  if (invalidQuad.length === 0) {
+    return 'legal';
+  }
+  return invalidQuad.toString()
 }
 
 module.exports = sudokuQuadrantChecker;
