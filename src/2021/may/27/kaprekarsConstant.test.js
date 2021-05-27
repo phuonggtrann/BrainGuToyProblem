@@ -39,5 +39,5 @@ describe("kaprekarsConstant tests", () => {
 
   it("should pass tenth test", () => {
     expect(kaprekarsConstant(5342)).toBe(3);
-  });
+  });  
 });
