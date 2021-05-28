@@ -4,8 +4,49 @@
 // There will only ever be one shortest path for the array. If no path between the first and last node exists, return -1. The array will at minimum have two nodes. Also, the connection A-B for example, means that A can get to B and B can get to A.
 
 function shortestPath(strArr) {
-  // code goes here
-  return strArr;
+  let path = []
+  let graph = {}
+  for (let i=1; i<parseInt(strArr[0])+1; i++) {
+    graph[strArr[i]] = []
+  }
+  // construct graph
+  let start = strArr[1]
+  let end = strArr[parseInt(strArr[0])]
+
+  for (let i=parseInt(strArr[0])+1; i<strArr.length; i++) {
+    let connection = strArr[i].split('-')
+    //console.log(connection)
+    graph[connection[0]].push(connection[1])
+  }
+
+  // bfs
+  let visit = []
+  let queue = [[start]]
+  while (queue) {
+
+    path = queue.pop(0)
+    node = path[path.length-1]
+
+    // check if visited
+    if (!visit.includes(node)) {
+      neighbors = graph[node]
+
+      // iterate through neighbors
+      for (let i=0; i<neighbors.length; i++) {
+        newPath = path
+        newPath.push(neighbors[i])
+        queue.push(newPath)
+
+        if (neighbors[i] === end) {
+
+          return newPath.join('-')
+        }
+      }
+    }
+  }
+
+  return -1;
 }
+
 
 module.exports = shortestPath;
