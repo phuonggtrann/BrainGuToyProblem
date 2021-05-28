@@ -156,5 +156,5 @@ describe("shortestPath tests", () => {
         "N2-N1",
       ])
     ).toBe("N1-N2-N5");
-  });
+  });  
 });
