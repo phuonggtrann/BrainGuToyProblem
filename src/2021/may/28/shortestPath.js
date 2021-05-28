@@ -17,17 +17,16 @@ function shortestPath(strArr) {
     graph[connection[1]].push(connection[0])
     graph[connection[0]].push(connection[1])
   }
-  console.log(graph)
   // bfs
   let visit = []
   let queue = [[start]]
   var path = []
   var newPath = []
 
-  while (queue) {
-
+  while (queue.length>0) {
     path = queue.pop(0)
     node = path[path.length-1]
+    console.log(queue)
 
     // check if visited
     if (!visit.includes(node)) {

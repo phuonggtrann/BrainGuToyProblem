@@ -68,7 +68,7 @@ describe("shortestPath tests", () => {
       shortestPath(["5", "c", "h", "d", "s", "m", "c-s", "s-h", "d-m", "h-d"])
     ).toBe("c-s-h-d-m");
   });
-
+ 
   it("should pass sixth test", () => {
     expect(shortestPath(["2", "First Street", "Third Street"])).toBe(-1);
   });
