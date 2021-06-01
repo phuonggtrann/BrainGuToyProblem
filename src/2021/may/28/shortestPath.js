@@ -22,11 +22,10 @@ function shortestPath(strArr) {
   let queue = [[start]]
   var path = []
   var newPath = []
-
+  console.log(graph)
   while (queue.length>0) {
     path = queue.pop(0)
     node = path[path.length-1]
-    console.log(queue)
 
     // check if visited
     if (!visit.includes(node)) {

@@ -35,5 +35,5 @@ describe("romanNumeralReduction tests", () => {
 
   it("should pass ninth test", () => {
     expect(romanNumeralReduction("LXXXVVVIIIII")).toBe("C");
-  });
+  }); 
 });
