@@ -39,5 +39,5 @@ describe("switchSort tests", () => {
 
   it("should pass tenth test", () => {
     expect(switchSort([5, 4, 3, 1, 2])).toBe(3);
-  });
+  }); 
 });

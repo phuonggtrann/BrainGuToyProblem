@@ -42,7 +42,7 @@ describe("shortestPath tests", () => {
       ])
     ).toBe("A-B-C-Q");
   });
-/*
+
   it("should pass fourth test", () => {
     expect(
       shortestPath([
@@ -156,5 +156,5 @@ describe("shortestPath tests", () => {
         "N2-N1",
       ])
     ).toBe("N1-N2-N5");
-  });   */
+  });   
 });
